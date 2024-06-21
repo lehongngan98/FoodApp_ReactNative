@@ -10,6 +10,7 @@ export const Colors ={
     statusBar: "#ff8c52",
     headerText: "white",
     primary: "#ff8c52",
+    secondary: "#ff8c52",
     
 }
 

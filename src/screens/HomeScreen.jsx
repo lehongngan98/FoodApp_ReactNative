@@ -1,4 +1,5 @@
-import { StyleSheet, Text, View, SafeAreaView, Image, FlatList, Pressable, Dimensions } from 'react-native'
+import { StyleSheet, Text, View, Image, FlatList, Pressable, Dimensions, SafeAreaView } from 'react-native'
+
 import React from 'react'
 import HomeHeader from '../components/HomeHeader'
 import { TouchableOpacity, ScrollView } from 'react-native';
@@ -8,22 +9,27 @@ import { Icon } from '@rneui/themed';
 import { filterData, restaurantsData } from '../global/data';
 import { color } from '@rneui/base';
 import FoodCard from '../components/FoodCard';
+import CountDown from 'react-native-countdown-component';
+
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
-const HomeScreen = () => {
+const HomeScreen = ({ navigation }) => {
     const [delivery, setDelivery] = useState(true);
     const [indexCheck, setIndexCheck] = useState(0);
 
     return (
-        <SafeAreaView styles={styles.container}>
+        <SafeAreaView styles={styles.container} >
             <HomeHeader />
 
             <ScrollView
                 stickyHeaderIndices={[0]}
-                showsVerticalScrollIndicator={true}
+                showsVerticalScrollIndicator={false}
+                style={{
+                    marginBottom: 50
+                }}
             >
-                <View>
+                <View style={{ backgroundColor: Colors.cardBackground }}>
                     <View style={{ flexDirection: 'row', justifyContent: 'center', marginTop: 10 }}>
                         {/* button delivery */}
                         <TouchableOpacity
@@ -109,11 +115,11 @@ const HomeScreen = () => {
                         extraData={indexCheck}
                         renderItem={({ item, index }) => (
                             <Pressable key={index}
-                                onPress={()=>{setIndexCheck(item.id)}}
+                                onPress={() => { setIndexCheck(item.id) }}
                             >
                                 <View style={indexCheck === item.id ? styles.smallCardSelected : styles.smallCard}>
-                                    <Image source={item.image} style={{ height: 70, width: 70 ,borderRadius:20,resizeMode:'cover'}} />
-                                    <Text style={[ {fontWeight: 'bold',marginTop:10 }, indexCheck === item.id ? {color:'white'}:{color:'black'}]}>{item.name}</Text>
+                                    <Image source={item.image} style={{ height: 70, width: 70, borderRadius: 20, resizeMode: 'cover' }} />
+                                    <Text style={[{ fontWeight: 'bold', marginTop: 10 }, indexCheck === item.id ? { color: 'white' } : { color: 'black' }]}>{item.name}</Text>
                                 </View>
                             </Pressable>
                         )}
@@ -125,33 +131,124 @@ const HomeScreen = () => {
                 </View>
 
                 <View>
-                    <FlatList 
+                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                        <Text style={{ marginLeft: 15, marginHorizontal: 10, fontSize: 18, fontWeight: 500 }}>Options changing in</Text>
+                        <CountDown
+                            until={60 * 60 * 12}
+                            size={13}
+                            digitStyle={{ backgroundColor: Colors.secondary }}
+                            digitTxtStyle={{ color: Colors.headerText }}
+                            timeToShow={['H', 'M', 'S']}
+                            timeLabels={{ h: 'Hours', m: 'Minutes', s: 'Seconds' }}
+                            onFinish={() => alert('finished')}
+                            style={{ marginHorizontal: 10 }}
+                        />
+                    </View>
+                    <FlatList
                         horizontal={true}
                         showsHorizontalScrollIndicator={false}
                         data={restaurantsData}
-                        keyExtractor={(item,index) => index.toString()}
-                        style={{marginTop:10,marginBottom:10}}
+                        keyExtractor={(item, index) => index.toString()}
+                        style={{ marginTop: 10, marginBottom: 10 }}
                         renderItem={({ item }) => (
-                            <View>
-                               <FoodCard 
-                                // onPressFoodCard,
-                                // restaurantName,
-                                // deliveryAvailable,
-                                // discountAvailable,
-                                // discountPercent,
-                                // nubmerOfReview,
-                                // businessAddress,
-                                // farAway,
-                                // averageReview,
-                                // images,
-                                screenWidth = {SCREEN_WIDTH * 0.8}
-                               
-                               />
+                            <View style={{ marginLeft: 5 }}>
+                                <FoodCard
+                                    // onPressFoodCard,
+                                    restaurantName={item.restaurantName}
+                                    // deliveryAvailable,
+                                    // discountAvailable,
+                                    // discountPercent,
+                                    nubmerOfReview={item.numberOfReview}
+                                    businessAddress={item.businessAddress}
+                                    farAway={item.farAway}
+                                    averageReview={item.averageReview}
+                                    images={item.images}
+                                    screenWidth={SCREEN_WIDTH * 0.8}
+
+                                />
                             </View>
                         )}
                     />
                 </View>
+
+                <View style={styles.headerTextView}>
+                    <Text style={styles.headerText}>Promosions available</Text>
+                </View>
+
+                <View>
+                    <FlatList
+                        horizontal={true}
+                        showsHorizontalScrollIndicator={false}
+                        data={restaurantsData}
+                        keyExtractor={(item, index) => index.toString()}
+                        style={{ marginTop: 10, marginBottom: 10 }}
+                        renderItem={({ item }) => (
+                            <View style={{ marginLeft: 5 }}>
+                                <FoodCard
+                                    // onPressFoodCard,
+                                    restaurantName={item.restaurantName}
+                                    // deliveryAvailable,
+                                    // discountAvailable,
+                                    // discountPercent,
+                                    nubmerOfReview={item.numberOfReview}
+                                    businessAddress={item.businessAddress}
+                                    farAway={item.farAway}
+                                    averageReview={item.averageReview}
+                                    images={item.images}
+                                    screenWidth={SCREEN_WIDTH * 0.8}
+
+                                />
+                            </View>
+                        )}
+                    />
+                </View>
+
+                <View style={styles.headerTextView}>
+                    <Text style={styles.headerText}>Restaurants in your area</Text>
+                </View>
+
+                <View>
+                    {
+                        restaurantsData.map((item) => (
+                            <View key={item.id}>
+                                <FoodCard
+                                    restaurantName={item.restaurantName}
+                                    nubmerOfReview={item.numberOfReview}
+                                    businessAddress={item.businessAddress}
+                                    farAway={item.farAway}
+                                    averageReview={item.averageReview}
+                                    images={item.images}
+                                    screenWidth={SCREEN_WIDTH * 0.9}
+                                />
+
+                            </View>
+                        ))
+                    }
+                </View>
+
+
+
+
             </ScrollView>
+
+            {
+                delivery && <View style={styles.floatButton}>
+                    <TouchableOpacity
+                        onPress={() => {
+                            navigation.navigate('RestaurantsMapScreen')
+                        }}
+                    >
+                        <Icon
+                            type='material'
+                            name='place'
+                            color={Colors.buttons}
+                            size={32}
+                        />
+                        <Text style={{ color: Colors.grey2 }}>Map</Text>
+                    </TouchableOpacity>
+
+                </View>
+            }
         </SafeAreaView>
     )
 }
@@ -163,6 +260,7 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: 'white',
         alignItems: 'center',
+
     },
     deliveryButton: {
         width: 150,
@@ -207,5 +305,27 @@ const styles = StyleSheet.create({
         width: 100,
         margin: 5,
         height: 120,
-    }
+    },
+    safeAreaBottom: {
+        height: 20
+    },
+    floatButton: {
+        position: 'absolute',
+        bottom: 50,
+        right: 10,
+        backgroundColor: 'white',
+        width: 60,
+        height: 60,
+        borderRadius: 30,
+        alignItems: 'center',
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5,
+
+    },
 })

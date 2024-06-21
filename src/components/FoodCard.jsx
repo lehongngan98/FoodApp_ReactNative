@@ -17,7 +17,7 @@ const FoodCard = ({
     screenWidth
 }) => {
     return (
-        <TouchableOpacity>
+        <TouchableOpacity style={styles.container}>
             <View style={{...styles.cardView,width:screenWidth}}>
                 <Image 
                     style={{...styles.image,width:screenWidth}}
@@ -25,7 +25,7 @@ const FoodCard = ({
                 />
             </View>
 
-            <View>
+            <View style={{marginLeft:10}}>
                 <Text style={styles.restaurantName}>{restaurantName}</Text>                
             </View>
 
@@ -41,15 +41,15 @@ const FoodCard = ({
                     <Text style={styles.farAway}>{farAway} km</Text>
                 </View>
 
-                <View style={{flex:9,flexDirection:'row'}}>
-                    <Text style={styles.businessAddress}>{businessAddress}</Text>
+                <View style={{flex:9,flexDirection:'row',marginLeft:10}}>
+                    <Text style={[styles.businessAddress]}>{businessAddress}</Text>
 
                 </View>
 
             </View>
 
             <View style={styles.review}>
-                <Text style={styles.averageReview}>{averageReview}</Text>
+                <Text style={[styles.averageReview]}>{averageReview}</Text>
                 <Text>{nubmerOfReview} reviews</Text>
             </View>
 
@@ -60,6 +60,19 @@ const FoodCard = ({
 export default FoodCard
 
 const styles = StyleSheet.create({
+    container:{
+        flex:1,
+        flexDirection:'column',
+        backgroundColor:'white',
+        borderRadius:10,
+        margin:10,
+        paddingBottom:5,
+        shadowColor:'black',
+        shadowOffset:{width:0,height:2},
+        shadowOpacity:0.2,
+        shadowRadius:10,
+        elevation:5,
+    },
     cardView: {
         borderRadius: 20,
         backgroundColor: 'white',
@@ -75,6 +88,7 @@ const styles = StyleSheet.create({
         borderTopLeftRadius:5,
         borderTopRightRadius:5,
         height:150,
+        resizeMode:'contain',
     },
     restaurantName: {
         fontWeight: 'bold',
@@ -104,19 +118,22 @@ const styles = StyleSheet.create({
     },
     review:{
         position:'absolute',
-        top:0,
+        top:10,
         right:10,
         backgroundColor:Colors.grey5,        
-        flexDirection:'row',
+        flexDirection:'column',
         alignItems:'center',
         justifyContent:'space-between',
         padding:2,
-        borderBottomLeftRadius:12,
+        borderBottomLeftRadius:10,
+        borderTopRightRadius:10,
+        
     },
-    averageReview:{
-        color:'white',
+    averageReview:{    
+        
         fontWeight:'bold',
         fontSize:20,
         marginTop:-3,
-    }
+    },
+   
 })
