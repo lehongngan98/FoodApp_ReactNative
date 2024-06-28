@@ -53,7 +53,7 @@ const SignInScreen = () => {
 
             <TouchableOpacity style={styles.buttonSignin}
                 onPress={()=>{
-                    navigation.navigate('RootClientTabs');
+                    navigation.navigate('DrawerNavigator');
                 }}
             >
                 <Text

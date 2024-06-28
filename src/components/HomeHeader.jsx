@@ -2,10 +2,12 @@ import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { Colors, Parameters } from '../global/style'
 import { Icon ,withBadge} from '@rneui/themed';
+import { useNavigation } from '@react-navigation/native';
 
 
 const HomeHeader = () => {
     const BadgeIcon = withBadge(0)(Icon);
+    const navigation = useNavigation()
     return (
         <View style={styles.container}>
             <View style={styles.menu}>
@@ -14,6 +16,10 @@ const HomeHeader = () => {
                     name='menu'
                     color={Colors.headerText}
                     size={28}
+                    onPress={()=>{
+                        // bat toggledrawer
+                        navigation.toggleDrawer()   
+                    }}
                 />
             </View>
 

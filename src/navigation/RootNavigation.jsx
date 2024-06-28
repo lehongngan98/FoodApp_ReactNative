@@ -8,6 +8,7 @@ import WelcomeScreen from '../screens/authScreens/WelcomeScreen';
 
 import RootClientTabs from './ClientTab';
 import RestaurantsMapScreen from '../screens/RestaurantsMapScreen';
+import DrawerNavigator from './DrawerNavigator';
 
 
 
@@ -20,7 +21,7 @@ function RootNavigation() {
       <Stack.Navigator initialRouteName='Welcome'>
         <Stack.Screen name="SignIn" component={SignInScreen} options={{headerShown:false}}/>
         <Stack.Screen name="Welcome" component={WelcomeScreen} options={{headerShown:false}}/>
-        <Stack.Screen name="RootClientTabs" component={RootClientTabs} options={{headerShown:false}}/>
+        <Stack.Screen name="DrawerNavigator" component={DrawerNavigator} options={{headerShown:false}}/>
         <Stack.Screen name="RestaurantsMapScreen" component={RestaurantsMapScreen} options={{headerShown:true}}/>
 
       </Stack.Navigator>
