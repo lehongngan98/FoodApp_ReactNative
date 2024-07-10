@@ -16,6 +16,8 @@ const SignInScreen = () => {
 
     const auth = getAuth(app);
 
+    // login with google
+
     const handleSignIn = () => {
         if (email === "" || password === "") {
             Alert.alert("Error", "Email and Password fields cannot be empty.");
