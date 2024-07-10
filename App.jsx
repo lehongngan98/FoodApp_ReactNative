@@ -4,9 +4,11 @@
 import RootNavigation from './src/navigation/RootNavigation';
 
 function App() {
-  return (
-    <RootNavigation />
-  );
+
+
+    return (
+        <RootNavigation />
+    );
 }
 
 export default App;

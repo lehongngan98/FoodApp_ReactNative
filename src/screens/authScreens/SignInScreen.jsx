@@ -1,20 +1,47 @@
-import { SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { Alert, SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import Header from '../../components/Header';
 import { Colors, Sizes } from '../../global/style';
 import { Feather, FontAwesome } from '@expo/vector-icons';
 import { SocialIcon } from '@rneui/themed';
 import { useNavigation } from '@react-navigation/native';
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import app from '../../../firebaseConfig.js'
 
 const SignInScreen = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-   const navigation = useNavigation();
+    const navigation = useNavigation();
+
+    const auth = getAuth(app);
+
+    const handleSignIn = () => {
+        if (email === "" || password === "") {
+            Alert.alert("Error", "Email and Password fields cannot be empty.");
+            return;
+        }
+
+        signInWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                const user = userCredential.user;
+                console.log("Signed in with:", user.email);
+                navigation.navigate('DrawerNavigator')
+
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                Alert.alert("Sign In Error", errorMessage);
+            });
+    };
+
+    
 
     return (
         <SafeAreaView style={styles.container}>
-            
+
+
             <StatusBar barStyle={'dark-content'} backgroundColor={Colors.statusBar} />
 
             <Header title={"My Account"} type={'arrow-left'} />
@@ -23,6 +50,8 @@ const SignInScreen = () => {
                 <Text style={styles.signintext}>Welcome back</Text>
             </View>
 
+
+
             <View style={styles.input}>
 
                 <View style={styles.emailInput}>
@@ -30,8 +59,8 @@ const SignInScreen = () => {
                     <TextInput
                         placeholder='Email'
                         style={styles.textInput}
-                        
                         onChangeText={setEmail}
+                        value={email}
                     />
                 </View>
                 <View style={styles.passwordInput}>
@@ -39,9 +68,9 @@ const SignInScreen = () => {
                     <TextInput
                         placeholder='Password'
                         style={styles.textInput}
-                        
-                        onChangeText={setPassword}
 
+                        onChangeText={setPassword}
+                        value={password}
                         secureTextEntry
                     />
                 </View>
@@ -52,45 +81,46 @@ const SignInScreen = () => {
             </View>
 
             <TouchableOpacity style={styles.buttonSignin}
-                onPress={()=>{
-                    navigation.navigate('DrawerNavigator');
-                }}
+                onPress={handleSignIn}
             >
                 <Text
                     style={{ color: 'black', fontSize: Sizes.h3, padding: 6, fontWeight: 500, textAlign: 'center' }}
                 >Sign In</Text>
             </TouchableOpacity>
 
+
+
+
             <Text style={{ fontSize: 20, marginTop: 30 }}>Or</Text>
 
             <View style={{
-                width:'100%',
-                alignItems:'center',
-                marginTop:20,
+                width: '100%',
+                alignItems: 'center',
+                marginTop: 20,
             }}>
-                <SocialIcon 
+                <SocialIcon
                     title='Sign In With Facebook'
                     button
                     type='facebook'
                     style={styles.SocialIcon}
-                    onPress={()=>{}}
+                    onPress={() => { }}
                 />
-                <SocialIcon 
+                <SocialIcon
                     title='Sign In With Gmail'
                     button
                     type='google'
                     style={styles.SocialIcon}
-                    onPress={()=>{}}
+                    onPress={() => { }}
 
                 />
             </View>
 
-            <View style={{flexDirection:'row',justifyContent:'center'}}>
+            <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
                 <Text style={{ fontSize: 18, marginTop: 30 }}>Don't have an account?</Text>
-                <Text style={{ fontSize: 18, marginTop: 30, color:'tomato' ,fontWeight:500 ,fontStyle:'italic'}}
-                    onPress={()=>{
+                <Text style={{ fontSize: 18, marginTop: 30, color: 'tomato', fontWeight: 500, fontStyle: 'italic' }}
+                    onPress={() => {
                         console.log("Sign Up");
-                    
+
                     }}
                 > Sign Up</Text>
             </View>
@@ -122,7 +152,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         width: '100%',
         justifyContent: 'center',
-        
+
     },
 
     emailInput: {
@@ -181,10 +211,10 @@ const styles = StyleSheet.create({
         marginTop: 30,
     },
     SocialIcon: {
-        height:50,
+        height: 50,
         borderRadius: 10,
-        width:'60%',
-        
+        width: '60%',
+
 
     }
 

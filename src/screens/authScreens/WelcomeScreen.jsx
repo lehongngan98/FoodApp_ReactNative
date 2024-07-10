@@ -52,7 +52,7 @@ const WelcomeScreen = ({navigation}) => {
 
                 <TouchableOpacity style={styles.buttonSignup}
                     onPress={() => {
-                        
+                        navigation.navigate('SignUp')                        
                     }}
                 >
                     <Text

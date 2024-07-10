@@ -5,10 +5,15 @@ import { Colors } from '../global/style';
 import SearchScreen from '../screens/SearchScreen';
 import MyOrdersScreen from '../screens/MyOrdersScreen';
 import MyAccountScreen from '../screens/MyAccountScreen';
+import ClientSearchNavigator from './ClientSearchNavigator';
+
+
 
 const Tab = createBottomTabNavigator();
 
 function RootClientTabs() {
+
+    
     return (
         <Tab.Navigator
             initialRouteName="Home"
@@ -45,8 +50,8 @@ function RootClientTabs() {
                 }
             />
             <Tab.Screen
-                name="Search"
-                component={SearchScreen}
+                name="ClientSearchNavigator"
+                component={ClientSearchNavigator}
                 options ={
                     {
                         title: 'Search',

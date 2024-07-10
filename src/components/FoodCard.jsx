@@ -2,6 +2,7 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import { Colors } from '../global/style'
 import { Icon } from '@rneui/themed'
+import { useNavigation } from '@react-navigation/native'
 
 const FoodCard = ({
     onPressFoodCard,
@@ -9,15 +10,20 @@ const FoodCard = ({
     deliveryAvailable,
     discountAvailable,
     discountPercent,
-    nubmerOfReview,
+    numberOfReview,
     businessAddress,
     farAway,
     averageReview,
     images,
     screenWidth
 }) => {
+
+    const navigation = useNavigation()
+
     return (
-        <TouchableOpacity style={styles.container}>
+        <TouchableOpacity style={styles.container}
+            // onPress={()=>{navigation.navigate("RestaurantHomeScreen"})}}
+        >
             <View style={{...styles.cardView,width:screenWidth}}>
                 <Image 
                     style={{...styles.image,width:screenWidth}}
@@ -50,7 +56,7 @@ const FoodCard = ({
 
             <View style={styles.review}>
                 <Text style={[styles.averageReview]}>{averageReview}</Text>
-                <Text>{nubmerOfReview} reviews</Text>
+                <Text>{numberOfReview} reviews</Text>
             </View>
 
         </TouchableOpacity>

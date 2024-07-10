@@ -213,7 +213,7 @@ const HomeScreen = ({ navigation }) => {
                             <View key={item.id}>
                                 <FoodCard
                                     restaurantName={item.restaurantName}
-                                    nubmerOfReview={item.numberOfReview}
+                                    numberOfReview={item.numberOfReview}
                                     businessAddress={item.businessAddress}
                                     farAway={item.farAway}
                                     averageReview={item.averageReview}

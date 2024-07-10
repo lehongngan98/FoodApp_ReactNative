@@ -9,6 +9,9 @@ import WelcomeScreen from '../screens/authScreens/WelcomeScreen';
 import RootClientTabs from './ClientTab';
 import RestaurantsMapScreen from '../screens/RestaurantsMapScreen';
 import DrawerNavigator from './DrawerNavigator';
+import RestaurantSearchSreen from '../screens/RestaurantSearchSreen';
+import RestaurantHomeScreen from '../screens/RestaurantHomeScreen';
+import CreateAccountScreen from '../screens/authScreens/CreateAccountScreen';
 
 
 
@@ -20,10 +23,11 @@ function RootNavigation() {
     <NavigationContainer>
       <Stack.Navigator initialRouteName='Welcome'>
         <Stack.Screen name="SignIn" component={SignInScreen} options={{headerShown:false}}/>
+        <Stack.Screen name="SignUp" component={CreateAccountScreen} options={{headerShown:false}}/>
         <Stack.Screen name="Welcome" component={WelcomeScreen} options={{headerShown:false}}/>
         <Stack.Screen name="DrawerNavigator" component={DrawerNavigator} options={{headerShown:false}}/>
         <Stack.Screen name="RestaurantsMapScreen" component={RestaurantsMapScreen} options={{headerShown:true}}/>
-
+       
       </Stack.Navigator>
     </NavigationContainer>
   );

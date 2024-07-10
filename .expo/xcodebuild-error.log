@@ -1,0 +1,9 @@
+--- xcodebuild: WARNING: Using the first of multiple matching destinations:
+{ platform:iOS Simulator, id:D528E041-6C11-4A25-9F71-C6E586828C82, OS:17.5, name:iphone 12 }
+{ platform:iOS Simulator, id:D528E041-6C11-4A25-9F71-C6E586828C82, OS:17.5, name:iphone 12 }
+** BUILD FAILED **
+
+
+The following build commands failed:
+	Ld /Users/nganle/Library/Developer/Xcode/DerivedData/FoodApp-deyudqzrrhigljgpvyqytdupmxul/Build/Products/Debug-iphonesimulator/FoodApp.app/FoodApp normal (in target 'FoodApp' from project 'FoodApp')
+(1 failure)

@@ -1,10 +1,26 @@
-import { SafeAreaView, StyleSheet, Text, View } from 'react-native'
-import React from 'react'
-import { Avatar, Icon, Switch } from '@rneui/themed'
-import { Colors } from '../global/style'
-import { DrawerContentScrollView, DrawerItem, DrawerItemList } from '@react-navigation/drawer'
+import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import { Avatar, Icon, Switch } from '@rneui/themed';
+import { Colors } from '../global/style';
+import { DrawerContentScrollView, DrawerItem, DrawerItemList } from '@react-navigation/drawer';
+import { getAuth, signOut } from 'firebase/auth';
+import { useNavigation } from '@react-navigation/native';
+import { auth } from '../../firebaseConfig.js'; // Updated import
 
 const DrawerContent = (props) => {
+    const navigation = useNavigation();
+
+    // const handleLogOut = async () => {
+    //     try {
+    //         await signOut(auth);
+    //         console.log("User signed out successfully");
+    //         navigation.reset({ index: 0, routes: [{ name: 'SignIn' }] });
+    //     } catch (error) {
+    //         console.error("Error signing out: ", error);
+    //     }
+    // };
+
+
     return (
         <View style={styles.container}>
             <DrawerContentScrollView {...props}>
@@ -16,7 +32,7 @@ const DrawerContent = (props) => {
                     />
                     <View style={styles.information}>
                         <Text style={{ maxWidth: 200, fontSize: 16, fontWeight: 500 }}>Le Hong Ngan</Text>
-                        <Text style={{ maxWidth: 200, fontSize: 14 }}>lehongngan@gmail.com  </Text>
+                        <Text style={{ maxWidth: 200, fontSize: 14 }}>lehongngan@gmail.com</Text>
                     </View>
                 </View>
 
@@ -30,7 +46,6 @@ const DrawerContent = (props) => {
                         <Text style={styles.textContent}>My cards</Text>
                     </View>
                 </View>
-
 
                 <DrawerItemList {...props} />
 
@@ -60,7 +75,7 @@ const DrawerContent = (props) => {
 
                 <View style={{ borderTopWidth: 1, borderTopColor: Colors.grey4 }}>
                     <Text style={styles.preference}>Preferences</Text>
-                    <View style={styles.swichText}>
+                    <View style={styles.switchText}>
                         <Text style={styles.darkTheme}>Dark theme</Text>
                         <Switch
                             trackColor={{ false: "#767577", true: "#81b0ff" }}
@@ -83,19 +98,19 @@ const DrawerContent = (props) => {
                         size={size}
                     />
                 )}
-                style={{marginBottom:30}}
+                style={{ marginBottom: 30 }}
+                // onPress={handleLogOut}
             />
         </View>
-    )
+    );
 }
 
-export default DrawerContent
+export default DrawerContent;
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: Colors.background
-
     },
     content: {
         width: '100%',
@@ -129,11 +144,10 @@ const styles = StyleSheet.create({
         marginLeft: 20,
         marginTop: 10,
         fontSize: 16,
-        // fontWeight: 400,
         color: Colors.grey1,
         fontStyle: 'italic',
     },
-    swichText: {
+    switchText: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
@@ -143,8 +157,5 @@ const styles = StyleSheet.create({
     darkTheme: {
         fontSize: 16,
         fontWeight: 800,
-
     },
-
-
-})
+});
