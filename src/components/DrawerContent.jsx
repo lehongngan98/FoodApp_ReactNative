@@ -1,24 +1,60 @@
-import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
-import React from 'react';
+import { AppState, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import React, { useContext, useEffect, useState } from 'react';
 import { Avatar, Icon, Switch } from '@rneui/themed';
 import { Colors } from '../global/style';
 import { DrawerContentScrollView, DrawerItem, DrawerItemList } from '@react-navigation/drawer';
 import { getAuth, signOut } from 'firebase/auth';
 import { useNavigation } from '@react-navigation/native';
-import { auth } from '../../firebaseConfig.js'; // Updated import
+import { app, auth } from '../../firebaseConfig.js'; // Updated import
+import { SignInContext } from '../contexts/authContext.jsx';
 
 const DrawerContent = (props) => {
+
+    const auth = getAuth(app);
+
+    const { dispatchSignedIn } = useContext(SignInContext);
+
     const navigation = useNavigation();
 
-    // const handleLogOut = async () => {
-    //     try {
-    //         await signOut(auth);
-    //         console.log("User signed out successfully");
-    //         navigation.reset({ index: 0, routes: [{ name: 'SignIn' }] });
-    //     } catch (error) {
-    //         console.error("Error signing out: ", error);
-    //     }
-    // };
+    const [emailUser, setEmailUser] = useState('');
+
+    useEffect(() => {
+        if (auth.currentUser) {
+            setEmailUser(auth.currentUser.email);
+            console.log("user :",auth.currentUser);
+        }
+    }, [auth.currentUser]);
+
+
+    useEffect(() => {
+        if (AppState && AppState.addEventListener) {
+            const subscription = AppState.addEventListener('change', (nextAppState) => {
+                if (nextAppState === 'active') {
+                    // Custom logic when app becomes active
+                }
+            });
+
+            return () => {
+                subscription.remove();
+            };
+        }
+    }, []);
+    
+    const handleLogOut = async () => {
+        try {
+            await signOut(auth);
+            console.log("User signed out successfully");
+
+            // Dispatch action to update signedIn state
+            dispatchSignedIn({ type: 'UPDATE_SIGN_IN', payload: { userToken: null } });
+
+        } catch (error) {
+            console.error("Error signing out: ", error);
+        }
+    };
+
+
+
 
 
     return (
@@ -32,7 +68,8 @@ const DrawerContent = (props) => {
                     />
                     <View style={styles.information}>
                         <Text style={{ maxWidth: 200, fontSize: 16, fontWeight: 500 }}>Le Hong Ngan</Text>
-                        <Text style={{ maxWidth: 200, fontSize: 14 }}>lehongngan@gmail.com</Text>
+
+                        <Text style={{ maxWidth: 200, fontSize: 14 }}>{emailUser}</Text>
                     </View>
                 </View>
 
@@ -88,6 +125,7 @@ const DrawerContent = (props) => {
                 </View>
             </DrawerContentScrollView>
 
+
             <DrawerItem
                 label={"Log out"}
                 icon={({ color, size }) => (
@@ -99,8 +137,9 @@ const DrawerContent = (props) => {
                     />
                 )}
                 style={{ marginBottom: 30 }}
-                // onPress={handleLogOut}
+                onPress={handleLogOut}
             />
+
         </View>
     );
 }

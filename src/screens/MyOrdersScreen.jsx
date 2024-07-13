@@ -1,12 +1,20 @@
 import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import React, { useEffect } from 'react'
 
-const MyOrdersScreen = () => {
-  return (
-    <View>
-      <Text>MyOrdersScreen</Text>
-    </View>
-  )
+const MyOrdersScreen = ({ route }) => {
+    const { productName, price, image, productDetails, selectedDips, selectedDrinks, quantities } = route.params;
+
+    useEffect(() => {
+        console.log("MyOrdersScreen", quantities)
+
+    })
+
+
+    return (
+        <View>
+            <Text>MyOrdersScreen</Text>
+        </View>
+    )
 }
 
 export default MyOrdersScreen

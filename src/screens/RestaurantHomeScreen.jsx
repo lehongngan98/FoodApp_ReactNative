@@ -55,7 +55,7 @@ const RestaurantHomeScreen = ({ navigation, route }) => {
     }
 
     const renderModalScene = SceneMap({
-        beef: () => <MenuRoutesBeef />,
+        beef: () => <MenuRoutesBeef setModalVisible={setModalVisible}/>,
         chicken: () => <Text>Chicken</Text>,
         veggieBurger: () => <Text>Veggie Burger</Text>,
         friesCorn: () => <Text>Fries & Corn</Text>,

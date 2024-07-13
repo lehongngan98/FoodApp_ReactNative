@@ -1,21 +1,32 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import { useNavigation } from '@react-navigation/native'
+import PreferenceScreen from '../screens/PreferenceScreen';
 
-const MenuCardProduct = ({ productName, price, image, productDetails }) => {
+const MenuCardProduct = ({ productName, price, image, productDetails ,setModalVisible}) => {
 
     const navigation = useNavigation();
 
+    const onPressItem = () => {
+        setModalVisible(false)        
+        navigation.navigate('PreferenceScreen',{
+            productName: productName,
+            price: price,
+            image: image,
+            productDetails: productDetails
+        
+        })
+    }
     return (
         <TouchableOpacity
 
-            onPress={()=>navigation.navigate('')} // navigation product detail
+            onPress={onPressItem}
             style={styles.container}
         >
             <View style={styles.infoContainer}>
                 <Text style={styles.textProductName}>{productName}</Text>
                 <Text style={styles.textProductDetails}>{productDetails}</Text>
-                <Text style={styles.textPrice}>{price}</Text>
+                <Text style={styles.textPrice}>$ {price}</Text>
             </View>
             <View style={styles.imageContainer}>
                 <Image source={{ uri: image }} style={styles.image} />

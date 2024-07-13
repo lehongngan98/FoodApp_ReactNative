@@ -3,7 +3,7 @@ import React from 'react'
 import MenuCardProduct from '../../components/MenuCardProduct'
 import { RestaurantMenuRoutesBeef } from '../../global/data'
 
-const MenuRoutesBeef = () => {
+const MenuRoutesBeef = ({setModalVisible}) => {
     return (
         <View>
             <FlatList
@@ -15,6 +15,7 @@ const MenuRoutesBeef = () => {
                         price={item.price}
                         image={item.image}
                         productDetails={item.productDetails}
+                        setModalVisible={setModalVisible}
                     />
                 )}
             />

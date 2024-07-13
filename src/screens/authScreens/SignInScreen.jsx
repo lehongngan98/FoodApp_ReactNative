@@ -1,5 +1,5 @@
 import { Alert, SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Header from '../../components/Header';
 import { Colors, Sizes } from '../../global/style';
 import { Feather, FontAwesome } from '@expo/vector-icons';
@@ -7,8 +7,13 @@ import { SocialIcon } from '@rneui/themed';
 import { useNavigation } from '@react-navigation/native';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import app from '../../../firebaseConfig.js'
+import { SignInContext } from '../../contexts/authContext.jsx';
 
 const SignInScreen = () => {
+
+
+    const { dispatchSignedIn } = useContext(SignInContext)
+
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
@@ -16,9 +21,19 @@ const SignInScreen = () => {
 
     const auth = getAuth(app);
 
+    useEffect(() => {
+        if (auth.currentUser) {
+            console.log("user :", auth.currentUser);
+        }
+    }, [auth.currentUser]);
+
     // login with google
 
     const handleSignIn = () => {
+        
+
+
+        
         if (email === "" || password === "") {
             Alert.alert("Error", "Email and Password fields cannot be empty.");
             return;
@@ -27,7 +42,13 @@ const SignInScreen = () => {
         signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 const user = userCredential.user;
+                dispatchSignedIn({ type: 'UPDATE_SIGN_IN', payload: { userToken: "signed-in" } });
+
+                // token user
+                console.log("Token user: ", auth.currentUser.refreshToken);
+
                 console.log("Signed in with:", user.email);
+
                 navigation.navigate('DrawerNavigator')
 
             })
@@ -38,7 +59,7 @@ const SignInScreen = () => {
             });
     };
 
-    
+
 
     return (
         <SafeAreaView style={styles.container}>
@@ -84,6 +105,7 @@ const SignInScreen = () => {
 
             <TouchableOpacity style={styles.buttonSignin}
                 onPress={handleSignIn}
+                
             >
                 <Text
                     style={{ color: 'black', fontSize: Sizes.h3, padding: 6, fontWeight: 500, textAlign: 'center' }}

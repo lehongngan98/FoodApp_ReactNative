@@ -189,50 +189,94 @@ export const RestaurantMenuRoutesBeef = [
     {
         id: 0, 
         productName: 'Big Mac',    
-        price: '50.80',
+        price: 50.80,
         image: 'https://i.postimg.cc/sDtL9Dhd/bigmac.jpg',
         productDetails: 'Two 100% beef patties, a slice of cheese, lettuce, onion, pickles, and our special sauce all on a sesame seed bun.'
     },
     {
         id: 1, 
         productName: 'Quarter Pounder with Cheese',    
-        price: '60.80',
+        price: 60.80,
         image: 'https://th.bing.com/th/id/OIP.rgFZ3qBG_HDlRNuXHmK9lQHaFa?w=1500&h=1098&rs=1&pid=ImgDetMain',
         productDetails: '100% beef patty, cheese, onions, pickles, mustard, and a dollop of tomato ketchup in a sesame seed bun.'
     },
     {
         id: 2, 
         productName: 'Double Cheeseburger',    
-        price: '40.80',
+        price: 40.80,
         image: 'https://i.postimg.cc/sxKhfXCB/chickenburger.jpg',
         productDetails: 'Two 100% beef patties, a slice of cheese, pickles, onions, ketchup, and mustard in a soft burger bun.'
     },
     {
         id: 3, 
         productName: 'Cheeseburger',    
-        price: '30.80',
+        price: 30.80,
         image: 'https://i.postimg.cc/sDtL9Dhd/bigmac.jpg',
         productDetails: '100% beef patty, onions, pickles, ketchup, and mustard in a soft burger bun.'
     },
     {
         id: 4, 
         productName: 'Hamburger',    
-        price: '20.80',
+        price: 20.80,
         image: 'https://i.postimg.cc/3w8rBw3N/doublecheeseburger.jpg',
         productDetails: '100% beef patty, onions, pickles, ketchup, and mustard in a soft burger bun.'
     },
     {
         id: 5, 
         productName: 'McChicken',    
-        price: '40.80',
+        price: 40.80,
         image: 'https://i.postimg.cc/3w8rBw3N/doublecheeseburger.jpg',
         productDetails: 'A tender, breaded chicken patty with a crispy coating, topped with fresh lettuce and mayonnaise in a sesame seed bun.'
     },
     {
         id: 6, 
         productName: 'Chicken McNuggets',    
-        price: '50.80',
+        price: 50.80,
         image: 'https://i.postimg.cc/3w8rBw3N/doublecheeseburger.jpg',
         productDetails: 'Made with 100% seasoned chicken breast, the Chicken McNuggets you crave are still'
     }
+];
+
+
+
+export const Dips =[
+    {
+        id:0,
+        name:'Ketchup',
+        price: 10,
+    }
+    ,
+    {
+        id:1,
+        name:'Mustard',
+        price: 8.2,
+    }
+    ,
+    {
+        id:2,
+        name:'BBQ',
+        price: 11,
+    }
+    
+];
+
+export const Drinks =[
+    {
+        id:0,
+        name:'Coca Cola',
+        price: 10,
+    }
+    ,
+    {
+        id:1,
+        name:'Fanta',
+        price: 8.2,
+    }
+    ,
+    {
+        id:2,
+        name:'Sprite',
+        price: 11,
+    }
+    
 ];

@@ -18,19 +18,17 @@ import CreateAccountScreen from '../screens/authScreens/CreateAccountScreen';
 
 const Stack = createNativeStackNavigator();
 
-function RootNavigation() {
+function AuthStack() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName='Welcome'>
-        <Stack.Screen name="SignIn" component={SignInScreen} options={{headerShown:false}}/>
-        <Stack.Screen name="SignUp" component={CreateAccountScreen} options={{headerShown:false}}/>
-        <Stack.Screen name="Welcome" component={WelcomeScreen} options={{headerShown:false}}/>
-        <Stack.Screen name="DrawerNavigator" component={DrawerNavigator} options={{headerShown:false}}/>
-        <Stack.Screen name="RestaurantsMapScreen" component={RestaurantsMapScreen} options={{headerShown:true}}/>
-       
-      </Stack.Navigator>
-    </NavigationContainer>
+
+    <Stack.Navigator initialRouteName='Welcome'>
+      <Stack.Screen name="SignIn" component={SignInScreen} options={{ headerShown: false }} />
+      <Stack.Screen name="SignUp" component={CreateAccountScreen} options={{ headerShown: false }} />
+      <Stack.Screen name="Welcome" component={WelcomeScreen} options={{ headerShown: false }} />
+
+    </Stack.Navigator>
+
   );
 }
 
-export default RootNavigation;
+export default AuthStack;
